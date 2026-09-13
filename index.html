@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>511(b) Amenity Reality — still amenity-likely after Oct 19?</title>
+  <meta name="description" content="Paste travel/view date vs Oct 19 2026, what the airline said caused the delay, and overnight stranded? One shareable card: Amenity-likely / Amenity-unlikely / Pre-rule / Unsure. Meals/hotels hinge on controllable. Cite FR Sep 3 2026. Not legal advice. Not a claim filer.">
+  <meta name="theme-color" content="#0b0f14">
+  <meta property="og:title" content="511(b) Amenity Reality">
+  <meta property="og:description" content="Paste what they said caused it — still amenity-likely after Oct 19? Cite FR. Not legal advice.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">511</div>
+        <div>
+          <h1>511(b) Amenity Reality</h1>
+          <p class="tagline">Cause chip + Oct 19 gate → amenity-likely / unlikely / pre-rule share card.</p>
+        </div>
+      </div>
+      <span class="badge">Not legal advice</span>
+    </header>
+
+    <aside class="myth-banner" role="note">
+      <strong>Disclaimer.</strong>
+      This card is <em>cause → amenity literacy</em> —
+      <strong>not</strong> legal advice, <strong>not</strong> a claim filer, and <strong>not</strong> an airline customer-service tool.
+      Amenity commitments (meals / hotels) are <strong>airline-specific</strong> and hinge on whether the disruption is coded as <em>Air Carrier controllable</em>.
+      DOT final rule (FR Sep&nbsp;3&nbsp;2026 / 2026-18040) creates a <strong>Section 511(b)</strong> reporting category for <strong>ten</strong> statutory events excluded from “Air Carrier,” <strong>effective October&nbsp;19,&nbsp;2026</strong>.
+      <strong>Refund rights</strong> for cancel / significant change are <strong>separate</strong> — see
+      <a href="https://flightrights.gov/" target="_blank" rel="noopener noreferrer">flightrights.gov</a>
+      ·
+      <a href="https://www.transportation.gov/individuals/aviation-consumer-protection/refunds" target="_blank" rel="noopener noreferrer">transportation.gov refunds</a>
+      · Gate Rights Card (refund JTBD — not cloned here).
+      We never invent the airline’s official BTS code or a $ hotel/meal amount.
+      Sources:
+      <a href="https://www.federalregister.gov/documents/2026/09/03/2026-18040/cause-of-airline-delay-and-cancellation-categories-under-section-511b-of-the-faa-reauthorization-act" target="_blank" rel="noopener noreferrer">FR Sep 3 2026 (2026-18040)</a>
+      ·
+      <a href="https://www.crowell.com/en/insights/client-alerts/DOT-Final-Rule-Narrows-Airline-Delay-and-Cancellation-Reporting-Obligation-Under-FAA-Reauthorization-Act-of-2024" target="_blank" rel="noopener noreferrer">Crowell Sep 3</a>
+      ·
+      <a href="https://viewfromthewing.com/your-plane-breaks-but-the-airline-may-no-longer-owe-you-a-hotel-dot-finalizes-new-rule-to-shift-costs-to-passengers/" target="_blank" rel="noopener noreferrer">View from the Wing Sep 4</a>
+      ·
+      <a href="https://simpleflying.com/us-airlines-no-longer-owe-meals-hotels-uncontrollable-delays/" target="_blank" rel="noopener noreferrer">Simple Flying Sep 5</a>.
+    </aside>
+
+    <section class="panel lookup" aria-labelledby="lookup-heading">
+      <h2 id="lookup-heading">1. Paste what they said caused it</h2>
+      <p class="hint">
+        User paste only — <strong>no</strong> PNR scrape, <strong>no</strong> airline login.
+        Pick the closest cause chip to what the gate agent / airline said. Empty travel/view date → honest miss (we will not invent Oct&nbsp;19 math).
+      </p>
+
+      <div class="field-grid four">
+        <div>
+          <label for="travelDate">Travel / view date</label>
+          <input id="travelDate" type="date" required />
+        </div>
+        <div>
+          <label for="overnight">Overnight stranded?</label>
+          <select id="overnight">
+            <option value="no">No</option>
+            <option value="yes">Yes — overnight</option>
+          </select>
+        </div>
+        <div>
+          <label for="noteLabel">Note label (optional)</label>
+          <input id="noteLabel" type="text" maxlength="64" placeholder="e.g. Redacted · group chat" autocomplete="off" />
+        </div>
+        <div>
+          <label for="causeSelect">Cause (or tap a chip below)</label>
+          <select id="causeSelect"></select>
+        </div>
+      </div>
+
+      <h3 class="subhead">Cause chips (FR ten-event + framing buckets)</h3>
+      <div class="cause-chips" id="causeChips" role="group" aria-label="Delay cause chips"></div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="cardBtn">Show amenity card</button>
+        <button type="button" class="btn" id="clearBtn">Clear</button>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+
+      <h3 class="subhead">Seed examples (teaching scenarios)</h3>
+      <div class="seed-chips" id="seedChips" role="list" aria-label="Seed 511(b) amenity examples"></div>
+    </section>
+
+    <section class="panel card-panel" aria-labelledby="card-heading" id="cardSection" hidden>
+      <div class="card-toolbar">
+        <h2 id="card-heading">2. Shareable amenity card</h2>
+        <div class="actions">
+          <button type="button" class="btn" id="copySummary">Copy summary</button>
+          <button type="button" class="btn" id="shareBtn">Share link</button>
+          <button type="button" class="btn" id="pngBtn">Export PNG</button>
+        </div>
+      </div>
+
+      <!-- PRIMARY VISUAL: giant Amenity-likely / unlikely / Pre-rule / Unsure badge -->
+      <article class="renewal-card" id="amenityCard" aria-labelledby="dlHeadline">
+        <header class="card-head">
+          <div>
+            <p class="brand-line">511(b) Amenity Reality</p>
+            <p class="meta-line" id="cardMeta">—</p>
+            <h3 id="dlHeadline">Still amenity-likely after Oct 19?</h3>
+          </div>
+          <div class="verdict" id="statusBadge">
+            <span class="verdict-k text-primary" id="statusPill">—</span>
+            <span class="verdict-s" id="statusSub">Text-labeled · not color-only</span>
+          </div>
+        </header>
+
+        <div class="hero-amenity" aria-label="Amenity status badge">
+          <span class="hero-kicker">Amenity expectation</span>
+          <p class="hero-amenity-badge text-primary" id="amenityGiant">—</p>
+          <span class="hero-sub" id="amenitySub">—</span>
+        </div>
+
+        <p class="look-enroll-flag warn" id="statusFlag" aria-live="polite">—</p>
+
+        <p class="look-enroll-flag" id="controllableStrip" aria-live="polite">
+          Meals / hotels hinge on <em>controllable</em> (Air Carrier) disruptions.
+        </p>
+
+        <p class="look-enroll-flag warn" id="eventStrip" aria-live="polite">—</p>
+
+        <div class="receipt-strip four" id="receiptStrip" aria-label="Status breakdown">
+          <div class="r-item"><span class="r-k">Cause bucket</span><span class="r-v" id="rBucket">—</span></div>
+          <div class="r-item"><span class="r-k">Oct 19 2026</span><span class="r-v" id="rOct19">—</span></div>
+          <div class="r-item"><span class="r-k">Overnight</span><span class="r-v" id="rOvernight">—</span></div>
+          <div class="r-item"><span class="r-k">Travel / view</span><span class="r-v" id="rTravel">—</span></div>
+        </div>
+
+        <p class="decoder-line" id="decoderLine">—</p>
+        <p class="action-line" id="actionLine">—</p>
+        <p class="cite-line" id="citeLine">—</p>
+
+        <footer class="card-foot">
+          <span>Refund rights for cancel / significant change are SEPARATE — flightrights.gov · transportation.gov · Gate Rights</span>
+          <span>Not legal advice · not a claim filer · amenities are airline-specific commitments</span>
+        </footer>
+      </article>
+
+      <div class="share-box" id="shareBox" hidden>
+        <label for="shareUrl">Share URL (hash restores your pasted fields)</label>
+        <div class="row">
+          <input id="shareUrl" type="text" readonly />
+          <button type="button" class="btn" id="copyShare" style="flex:0 0 auto">Copy</button>
+        </div>
+        <p class="hint">Append UTM when you post, e.g. <code>?utm_source=reddit&amp;utm_medium=organic&amp;utm_campaign=amenity_511b_reality_mvp</code></p>
+      </div>
+
+      <div class="source-links" id="sourceLinks"></div>
+    </section>
+
+    <section class="panel legend" aria-labelledby="legend-heading">
+      <h2 id="legend-heading">How to read the card</h2>
+      <ul class="legend-list">
+        <li><span class="pill allin">Amenity-likely</span> Travel/view date ≥ Oct&nbsp;19&nbsp;2026 and cause is still <strong>other Air Carrier controllable</strong> (not one of the ten 511(b) events). Meals/hotels may still apply under airline customer-service plans — commitments are airline-specific.</li>
+        <li><span class="pill fee">Amenity-unlikely</span> Date ≥ Oct&nbsp;19 and cause is in the <strong>ten 511(b) events</strong>, or already framed as weather / NAS / security / late aircraft. Overnight hotel is especially unlikely under 511(b) framing.</li>
+        <li><span class="pill claim">Pre-rule</span> Date &lt; Oct&nbsp;19&nbsp;2026 — rule not yet effective. Card still shows which amenity bucket the cause would map to <em>after</em> Oct&nbsp;19.</li>
+        <li><span class="pill">Unsure</span> Cause chip = unsure — we will not invent a BTS code or amenity outcome.</li>
+        <li><strong>Under-hero status flag</strong> restates Pre-rule countdown / Amenity-likely / Amenity-unlikely / Unsure in text (not color-only).</li>
+        <li><strong>Refunds ≠ amenities.</strong> Ticket refund rights for cancel / significant change are separate. Pointers: flightrights.gov · transportation.gov · Gate Rights Card. This card does <em>not</em> clone refund logic.</li>
+        <li><strong>No invented $ or BTS codes.</strong> Empty/missing date = honest miss.</li>
+      </ul>
+    </section>
+
+    <div class="ad-slot" aria-hidden="true">
+      <span class="ad-label">Ad slot (placeholder — AdSense later)</span>
+      <p>Inventory under the card + “what is DOT Section 511(b) and do I still get a hotel?” explainer · brand-safe display only · never inside PNG · hard-avoid travel-insurance overclaim</p>
+    </div>
+
+    <footer>
+      <strong>511(b) Amenity Reality</strong> — cause-honest amenity share card for the Oct 19 2026 Section 511(b) cliff.
+      <ul>
+        <li>Travel/view date · cause chip · overnight → Amenity-likely / unlikely / Pre-rule / Unsure</li>
+        <li>User paste only · zero PNR scrape · not legal advice · not a claim filer</li>
+        <li>Free utility · ad-supported path (see README) · no Gumroad</li>
+      </ul>
+    </footer>
+    <canvas id="pngCanvas" width="900" height="1100" hidden aria-hidden="true"></canvas>
+  </div>
+</body>
+</html>
